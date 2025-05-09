@@ -8,12 +8,14 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {getFlagUrlByNationality} from '../utils/getFlagUrlByNationality';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../redux/store';
 import {fetchDriverResults} from '../redux/reducers/driverResultsReducer';
+import {iRace} from '../types/Race';
 
 type Driver = {
   driverId: string;
@@ -44,7 +46,7 @@ const DetailsScreen = () => {
   }, [driver.driverId]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <View style={styles.card}>
         <Image
           source={{uri: 'https://via.placeholder.com/150'}} // Заглушка, можно заменить
@@ -74,18 +76,25 @@ const DetailsScreen = () => {
       {loading ? (
         <ActivityIndicator />
       ) : (
-        races.map((race: any) => (
-          <View key={race.round} style={styles.raceCard}>
-            <Text style={styles.raceName}>{race.raceName}</Text>
-            <Text style={styles.circuitName}>{race.Circuit.circuitName}</Text>
-            <Text style={styles.raceDate}>{race.date}</Text>
-            <Text style={styles.raceLocation}>
-              Position: {race.Results[0]?.position || 'N/A'}
-            </Text>
-          </View>
-        ))
+        <FlatList
+          data={races}
+          keyExtractor={(item: iRace) =>
+            `${item.season}-${item.round}-${item.Circuit.circuitId}`
+          }
+          renderItem={({item}) => (
+            <View style={styles.raceCard}>
+              <Text style={styles.raceName}>{item.raceName}</Text>
+              <Text style={styles.circuitName}>{item.Circuit.circuitName}</Text>
+              <Text style={styles.raceDate}>{item.date}</Text>
+              <Text style={styles.raceLocation}>
+                Position: {item.Results[0]?.position || 'N/A'}
+              </Text>
+            </View>
+          )}
+          contentContainerStyle={{paddingBottom: 20}}
+        />
       )}
-    </ScrollView>
+    </View>
   );
 };
 

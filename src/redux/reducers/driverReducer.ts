@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Driver } from '../../types/Driver';
+import { iDriver } from '../../types/Driver';
 
 interface DriverState {
-    drivers: Driver[];
+    drivers: iDriver[];
     loading: boolean;
     error: string | null;
   }

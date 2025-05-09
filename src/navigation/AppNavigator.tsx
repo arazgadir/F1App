@@ -2,12 +2,12 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DriversScreen from '../screens/DriversScreen';
 import DetailsScreen from '../screens/DetailsScreen';
-import {Driver} from '../types/Driver';
+import {iDriver} from '../types/Driver';
 
 export type RootStackParamList = {
   Schedule: undefined;
   Drivers: undefined;
-  DriverDetails: {driver: Driver};
+  DriverDetails: {driver: iDriver};
 };
 
 const Stack = createNativeStackNavigator();

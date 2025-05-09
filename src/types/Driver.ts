@@ -1,4 +1,4 @@
-export interface Driver {
+export interface iDriver {
     driverId: string;
     permanentNumber?: string;
     code?: string;

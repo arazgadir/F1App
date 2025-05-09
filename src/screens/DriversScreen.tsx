@@ -1,18 +1,15 @@
 import React, {useEffect} from 'react';
 import {Text, ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 import {RootState, AppDispatch} from '../redux/store';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../navigation/AppNavigator';
-import {Driver} from '../types/Driver';
+import {iDriver} from '../types/Driver';
 import DriverCard from '../components/DriverCard';
 import {fetchDrivers} from '../redux/reducers/driverReducer';
 
 const DriversScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {drivers, loading, error} = useSelector(
-    (state: RootState) => state.driver,
+    (state: RootState) => state.drivers,
   );
 
   useEffect(() => {
@@ -25,7 +22,7 @@ const DriversScreen = () => {
   return (
     <FlatList
       data={drivers}
-      keyExtractor={(item: Driver) => item.driverId}
+      keyExtractor={(item: iDriver) => item.driverId}
       contentContainerStyle={styles.list}
       renderItem={({item}) => <DriverCard driver={item} />}
     />
