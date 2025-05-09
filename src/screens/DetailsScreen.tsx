@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Linking,
   Image,
   TouchableOpacity,
@@ -48,24 +47,29 @@ const DetailsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Image
-          source={{uri: 'https://via.placeholder.com/150'}} // Заглушка, можно заменить
-          style={styles.avatar}
-        />
         <Text style={styles.name}>
           {driver.givenName} {driver.familyName}
         </Text>
-        <Text style={styles.label}>Date of Birth:</Text>
-        <Text style={styles.value}>{driver.dateOfBirth}</Text>
-        <Text style={styles.label}>Nationality:</Text>
-        <View style={styles.nationalityRow}>
-          {getFlagUrlByNationality(driver.nationality) && (
-            <Image
-              source={{uri: getFlagUrlByNationality(driver.nationality)!}}
-              style={styles.flag}
-            />
-          )}
-          <Text style={styles.value}>{driver.nationality}</Text>
+
+        <View style={{flexDirection: 'row'}}>
+          <View>
+            <Text style={styles.label}>Date of Birth:</Text>
+            <Text style={styles.value}>{driver.dateOfBirth}</Text>
+            <Text style={styles.label}>Nationality:</Text>
+            <View style={styles.nationalityRow}>
+              {getFlagUrlByNationality(driver.nationality) && (
+                <Image
+                  source={{uri: getFlagUrlByNationality(driver.nationality)!}}
+                  style={styles.flag}
+                />
+              )}
+              <Text style={styles.value}>{driver.nationality}</Text>
+            </View>
+          </View>
+          <Image
+            source={{uri: 'https://via.placeholder.com/150'}} // Заглушка, можно заменить
+            style={styles.avatar}
+          />
         </View>
         <TouchableOpacity
           style={styles.button}
@@ -119,8 +123,11 @@ const styles = StyleSheet.create({
     borderLeftColor: '#e10600',
   },
   avatar: {
-    width: 150,
-    height: 150,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 100,
+    height: 100,
     borderRadius: 75,
     alignSelf: 'center',
     marginBottom: 16,

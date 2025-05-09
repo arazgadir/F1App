@@ -6,7 +6,6 @@ export const fetchDriverResults = createAsyncThunk(
   'driverResults/fetchDriverResults',
   async (driverId: string) => {
     const response = await axios.get(`https://ergast.com/api/f1/drivers/${driverId}/results.json?limit=1000`);
-    console.log('LOG___', response.data.MRData.RaceTable.Races)
     return response.data.MRData.RaceTable.Races;
   }
 );
